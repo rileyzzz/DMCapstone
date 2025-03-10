@@ -15,7 +15,7 @@ public enum CardAction
     None,
     UnlockBuilding,
     PlaceBuilding,
-    TriggerDisaster
+    ContributeToDisaster
 }
 
 [CreateAssetMenu(fileName = "CardData", menuName = "Wasting Co/CardData")]
