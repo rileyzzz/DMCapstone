@@ -39,7 +39,7 @@ public class CardData : ScriptableObject
     public GameObject BuildingToUnlock;
     public GameObject BuildingToPlace;
 
-    public static CardData[] GetAll()
+    public static IReadOnlyList<CardData> GetAll()
     {
         return Resources.LoadAll<CardData>("Cards/");
     }
