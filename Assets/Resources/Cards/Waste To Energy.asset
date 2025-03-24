@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
+  m_Name: Waste To Energy
+  m_EditorClassIdentifier: 
+  Archetype: 0
+  Icon: {fileID: 0}
+  Name: Waste To Energy
+  Description: Upgrade your landfill incinerator to provide a way to produce energy
+    from disposal
+  HintText: This can provide a small monetary boost, but can cause pollution, reduced
+    chance of landfill overflow disaster
+  EstimatedHappiness: 15
+  EstimatedPollution: 20
+  Cost: 2500
+  Action: 0
+  BuildingToUnlock: {fileID: 0}
+  BuildingToPlace: {fileID: 0}
