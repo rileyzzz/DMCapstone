@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: Build a recycling plant in town to allow for recycling collection
   HintText: Cost a lot initially, but could increase long term gains
   EstimatedHappiness: 5
-  EstimatedPollution: 10
+  EstimatedPollution: -10
   Cost: -6500
   Action: 1
   BuildingToUnlock: {fileID: 0}

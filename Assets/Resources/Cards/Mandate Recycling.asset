@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
-  m_Name: Expand Public Awareness
+  m_Name: Mandate Recycling
   m_EditorClassIdentifier: 
   Archetype: 0
   Icon: {fileID: 0}
-  Name: Expand Public Awareness
-  Description: Provide information to consumers on proper waste disposal
-  HintText: Boost town knowledge and understanding
+  Name: Mandate Recycling
+  Description: Make recycling mandatory throughout the town
+  HintText: Will reduce pollution, but might need you to devote more resources towards
+    recycle collection
   EstimatedHappiness: 5
-  EstimatedPollution: -10
-  Cost: -250
+  EstimatedPollution: 30
+  Cost: -2500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

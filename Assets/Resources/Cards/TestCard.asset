@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: Test!
   EstimatedHappiness: 5
   EstimatedPollution: 20
-  Cost: 1000
+  Cost: -1000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

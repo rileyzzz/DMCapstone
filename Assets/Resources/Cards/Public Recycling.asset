@@ -20,7 +20,7 @@ MonoBehaviour:
   HintText: Increases knowledge and ability for the townspeople to recycle, boost
     happiness and reduces pollution
   EstimatedHappiness: 20
-  EstimatedPollution: -35
+  EstimatedPollution: 35
   Cost: -1500
   Action: 0
   BuildingToUnlock: {fileID: 0}

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
-  m_Name: Expand Public Awareness
+  m_Name: Pollute River
   m_EditorClassIdentifier: 
-  Archetype: 0
+  Archetype: 3
   Icon: {fileID: 0}
-  Name: Expand Public Awareness
-  Description: Provide information to consumers on proper waste disposal
-  HintText: Boost town knowledge and understanding
-  EstimatedHappiness: 5
-  EstimatedPollution: -10
-  Cost: -250
+  Name: Pollute River
+  Description: Put overflow waste into river
+  HintText: Will temporarily reduce pollution, but might impact river surronding
+    pollution and happiness
+  EstimatedHappiness: -10
+  EstimatedPollution: -5
+  Cost: 1000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

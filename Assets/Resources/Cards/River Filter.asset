@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
-  m_Name: Expand Public Awareness
+  m_Name: River Filter
   m_EditorClassIdentifier: 
   Archetype: 0
   Icon: {fileID: 0}
-  Name: Expand Public Awareness
-  Description: Provide information to consumers on proper waste disposal
-  HintText: Boost town knowledge and understanding
-  EstimatedHappiness: 5
-  EstimatedPollution: -10
-  Cost: -250
+  Name: River Filter
+  Description: Develop a river waste collector/filter that will reduce runoff and
+    pollution in the river
+  HintText: Will increase production and efficiency
+  EstimatedHappiness: 15
+  EstimatedPollution: -35
+  Cost: -5500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

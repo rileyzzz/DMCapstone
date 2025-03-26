@@ -20,7 +20,7 @@ MonoBehaviour:
   HintText: This can provide a small monetary boost, but can cause pollution, reduced
     chance of landfill overflow disaster
   EstimatedHappiness: 15
-  EstimatedPollution: 20
+  EstimatedPollution: -20
   Cost: 2500
   Action: 0
   BuildingToUnlock: {fileID: 0}

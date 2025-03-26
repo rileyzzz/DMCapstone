@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
-  m_Name: Expand Public Awareness
+  m_Name: Build New Waste Dump
   m_EditorClassIdentifier: 
-  Archetype: 0
+  Archetype: 1
   Icon: {fileID: 0}
-  Name: Expand Public Awareness
-  Description: Provide information to consumers on proper waste disposal
-  HintText: Boost town knowledge and understanding
+  Name: Build Wew Waste Dump
+  Description: Construct a new waste dump in order to handle the large sum of waste
+    produced by the town
+  HintText: WIll reduce pollution caused from the other waste facilities overflow,
+    but might impact worker workload
   EstimatedHappiness: 5
   EstimatedPollution: -10
-  Cost: -250
-  Action: 0
+  Cost: -3750
+  Action: 2
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

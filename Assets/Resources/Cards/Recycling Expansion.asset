@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: This will cost more in the short term, but there may be opportunity for
     growth in the future
   EstimatedHappiness: 15
-  EstimatedPollution: -35
+  EstimatedPollution: 35
   Cost: -5000
   Action: 0
   BuildingToUnlock: {fileID: 0}

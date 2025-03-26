@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
-  m_Name: Expand Public Awareness
+  m_Name: Truck Maintaince
   m_EditorClassIdentifier: 
-  Archetype: 0
+  Archetype: 3
   Icon: {fileID: 0}
-  Name: Expand Public Awareness
-  Description: Provide information to consumers on proper waste disposal
-  HintText: Boost town knowledge and understanding
-  EstimatedHappiness: 5
-  EstimatedPollution: -10
-  Cost: -250
+  Name: Truck Maintainance
+  Description: Repair and clean all of the waste collection trucks
+  HintText: Will reduce truck failure and allows for possible truck upgrades
+  EstimatedHappiness: 0
+  EstimatedPollution: 10
+  Cost: -1500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

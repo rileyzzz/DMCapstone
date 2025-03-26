@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: Automatic waste segregation machine that improves recycling
   HintText: Will increase revenue and slightly benefit the environment
   EstimatedHappiness: 5
-  EstimatedPollution: -10
+  EstimatedPollution: 10
   Cost: -2500
   Action: 0
   BuildingToUnlock: {fileID: 0}

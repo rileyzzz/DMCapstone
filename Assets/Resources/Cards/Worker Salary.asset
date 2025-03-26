@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: Increase Workers Salaries
   HintText: Will increase production and efficiency
   EstimatedHappiness: 15
-  EstimatedPollution: -10
+  EstimatedPollution: 10
   Cost: -2500
   Action: 0
   BuildingToUnlock: {fileID: 0}

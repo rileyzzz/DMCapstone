@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: Invest in research that turn waste into energy source
   HintText: Will unlock the ability to sell energy made from waste plants
   EstimatedHappiness: -10
-  EstimatedPollution: 20
+  EstimatedPollution: -20
   Cost: -1750
   Action: 0
   BuildingToUnlock: {fileID: 0}
