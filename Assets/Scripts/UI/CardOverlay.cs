@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 public class CardOverlay : MonoBehaviour
 {
-    public RectTransform m_Overlay;
     public Animator m_CardAnim;
     public Card[] m_Cards;
 
     private HashSet<CardData> m_CardsPreviouslyShown = new();
 
     private ScoreboardUI scoreboard;
+
+    private bool m_bCardsVisible = false;
+    public bool CardsVisible => m_bCardsVisible;
 
     private void Start()
     {
@@ -20,11 +22,6 @@ public class CardOverlay : MonoBehaviour
         {
             Debug.LogError("Could not find ScoreboardUI in the scene!");
         }
-
-
-
-        // cardData = CardData.GetAll().FirstOrDefault();
-        SetRandomCards();
     }
 
     private void SetRandomCards()
@@ -46,8 +43,26 @@ public class CardOverlay : MonoBehaviour
         m_CardsPreviouslyShown.Add(allCards[cardIndex]);
     }
 
+
+    public void ShowCards()
+    {
+        Debug.Log("Showing cards.");
+
+        // Don't show cards if a set is already visible!
+        if (m_bCardsVisible)
+            return;
+
+        SetRandomCards();
+
+        m_CardAnim.SetBool("visible", true);
+        m_bCardsVisible = true;
+    }
+
     public void CardClicked(Card card)
     {
+        if (!m_bCardsVisible)
+            return;
+
         Debug.Log($"Card {card} clicked!");
 
         if (scoreboard == null)
@@ -68,5 +83,8 @@ public class CardOverlay : MonoBehaviour
 
         // Play the hide animation
         m_CardAnim.SetBool("visible", false);
+        m_bCardsVisible = false;
+
+        GameManager.Instance.IncrementRound();
     }
 }
