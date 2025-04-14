@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: Long term benefit to the environment. Increase monetary gain from facilities
   EstimatedHappiness: 7
   EstimatedPollution: -10
-  Cost: -1500
+  Cost: 1500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

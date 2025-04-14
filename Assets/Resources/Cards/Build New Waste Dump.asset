@@ -21,7 +21,7 @@ MonoBehaviour:
     but might impact worker workload
   EstimatedHappiness: 5
   EstimatedPollution: -10
-  Cost: -3750
+  Cost: 3750
   Action: 2
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

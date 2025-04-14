@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Archetype: 0
   Icon: {fileID: 0}
-  Name: Test Card 2!
-  Description: This is a testing card.
+  Name: Research Monetization
+  Description: Research more ways to monetize waste management
   HintText: Test!
-  EstimatedHappiness: 5
-  EstimatedPollution: 20
-  Cost: 1000
+  EstimatedHappiness: -10
+  EstimatedPollution: 10
+  Cost: -100
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

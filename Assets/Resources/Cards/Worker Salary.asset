@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: Will increase production and efficiency
   EstimatedHappiness: 15
   EstimatedPollution: 10
-  Cost: -2500
+  Cost: 2500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Archetype: 0
   Icon: {fileID: 0}
-  Name: Test Card!
-  Description: This is a testing card.
-  HintText: Test!
+  Name: Research Eco-Friendly
+  Description: Research ways to improve environmental conservation
+  HintText: Will help improve eco-friendly waste management
   EstimatedHappiness: 5
-  EstimatedPollution: 20
-  Cost: -1000
+  EstimatedPollution: -10
+  Cost: 1000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

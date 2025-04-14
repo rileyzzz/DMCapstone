@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: Boost town knowledge and understanding
   EstimatedHappiness: 5
   EstimatedPollution: -10
-  Cost: -250
+  Cost: 250
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

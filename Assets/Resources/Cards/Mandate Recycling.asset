@@ -19,8 +19,8 @@ MonoBehaviour:
   HintText: Will reduce pollution, but might need you to devote more resources towards
     recycle collection
   EstimatedHappiness: 5
-  EstimatedPollution: 30
-  Cost: -2500
+  EstimatedPollution: -30
+  Cost: 2500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

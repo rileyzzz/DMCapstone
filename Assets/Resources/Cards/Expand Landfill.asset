@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: Will increase revenue and reduce pollution in town, but not around factory
   EstimatedHappiness: 10
   EstimatedPollution: 30
-  Cost: -3000
+  Cost: 3000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

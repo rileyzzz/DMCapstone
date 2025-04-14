@@ -19,8 +19,8 @@ MonoBehaviour:
   HintText: Will temporarily reduce pollution, but might impact river surronding
     pollution and happiness
   EstimatedHappiness: -10
-  EstimatedPollution: -5
-  Cost: 1000
+  EstimatedPollution: 25
+  Cost: -1000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

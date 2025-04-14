@@ -20,7 +20,7 @@ MonoBehaviour:
     if not balanced
   EstimatedHappiness: -10
   EstimatedPollution: -15
-  Cost: 3500
+  Cost: -3500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

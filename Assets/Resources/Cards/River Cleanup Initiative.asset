@@ -21,7 +21,7 @@ MonoBehaviour:
     and help prevent complaints
   EstimatedHappiness: 20
   EstimatedPollution: -50
-  Cost: -7500
+  Cost: 7500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

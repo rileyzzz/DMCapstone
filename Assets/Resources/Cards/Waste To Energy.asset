@@ -21,7 +21,7 @@ MonoBehaviour:
     chance of landfill overflow disaster
   EstimatedHappiness: 15
   EstimatedPollution: -20
-  Cost: 2500
+  Cost: -2500
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

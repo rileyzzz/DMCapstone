@@ -21,7 +21,7 @@ MonoBehaviour:
     happiness and reduces pollution
   EstimatedHappiness: 10
   EstimatedPollution: -70
-  Cost: -3000
+  Cost: 3000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

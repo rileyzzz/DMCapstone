@@ -20,7 +20,7 @@ MonoBehaviour:
   HintText: Will raise money, but has no benefit to happiness or environment
   EstimatedHappiness: 0
   EstimatedPollution: 0
-  Cost: 5000
+  Cost: -5000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}

@@ -20,7 +20,7 @@ MonoBehaviour:
     to the public will be decreased
   EstimatedHappiness: -10
   EstimatedPollution: 0
-  Cost: 2000
+  Cost: -2000
   Action: 0
   BuildingToUnlock: {fileID: 0}
   BuildingToPlace: {fileID: 0}
