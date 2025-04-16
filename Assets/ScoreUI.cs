@@ -25,11 +25,12 @@ public class ScoreUI : MonoBehaviour
         if (money <= 500 && pollution < 50)
             return "EcoColapser";
 
+        if (money >= 8500 && pollution > 60 && happiness < 60)
+            return "Money Monger";
+
         if (happiness <= 50 && money > 5000)
             return "Cheapskate";
 
-        if (money > 10000 && pollution > 60 && happiness < 40)
-            return "Money Monger";
 
         return "Sustainable Futurist";
     }
