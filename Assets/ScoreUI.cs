@@ -19,13 +19,13 @@ public class ScoreUI : MonoBehaviour
 
     private string DetermineResultCategory(float happiness, int money, int pollution)
     {
-        if (happiness > 75 && money > 1000 && pollution < 20)
+        if (happiness > 85 && pollution < 20)
             return "Green Giant";
 
-        if (happiness >= 60 && money <= 1000 && pollution < 50)
+        if (money <= 500 && pollution < 50)
             return "EcoColapser";
 
-        if (happiness <= 50 && money > 5000 && pollution > 50)
+        if (happiness <= 50 && money > 5000)
             return "Cheapskate";
 
         if (money > 10000 && pollution > 60 && happiness < 40)
