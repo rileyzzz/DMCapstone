@@ -19,7 +19,7 @@ MonoBehaviour:
   HintText: Will increase short-term budget, but there could be future consequences
     if not balanced
   EstimatedHappiness: -10
-  EstimatedPollution: -15
+  EstimatedPollution: 15
   Cost: -3500
   Action: 0
   BuildingToUnlock: {fileID: 0}

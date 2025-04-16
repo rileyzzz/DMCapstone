@@ -18,7 +18,7 @@ MonoBehaviour:
   Description: Ban single use plastics in town
   HintText: May cause intitial outlash, but will benefit environment
   EstimatedHappiness: -5
-  EstimatedPollution: 40
+  EstimatedPollution: -40
   Cost: -500
   Action: 0
   BuildingToUnlock: {fileID: 0}
