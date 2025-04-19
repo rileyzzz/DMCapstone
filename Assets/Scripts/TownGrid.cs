@@ -109,8 +109,8 @@ public class TownGrid : MonoBehaviour
             { (true, false, true, true), (RoadPrefabs.IntersectionT, 3) },
 
             { (true, true, false, false), (RoadPrefabs.Straight, 0) },
-            { (true, true, false, true), (RoadPrefabs.IntersectionT, 2) },
-            { (true, true, true, false), (RoadPrefabs.IntersectionT, 0) },
+            { (true, true, false, true), (RoadPrefabs.IntersectionT, 0) },
+            { (true, true, true, false), (RoadPrefabs.IntersectionT, 2) },
             { (true, true, true, true), (RoadPrefabs.IntersectionFourWay, 0) },
         };
     }
