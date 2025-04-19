@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public enum CellType
 {
@@ -13,10 +14,18 @@ public enum CellType
     RecyclingPlant2,
 }
 
+public enum ImpulseType
+{
+    Happiness,
+    Pollution
+}
+
 class TownCell
 {
     public CellType Type;
     public Vector2Int GridPos;
+    public float PollutionLevel;
+    public float HappinessLevel;
     private GameObject Object;
 
     public void Instantiate(TownGrid grid)
@@ -55,6 +64,108 @@ class TownCell
         rotation = rot;
         return obj;
     }
+
+    public void Impulse(ImpulseType type, float amount)
+    {
+        if (type == ImpulseType.Happiness)
+        {
+            HappinessLevel += amount;
+            HappinessLevel = Mathf.Clamp(HappinessLevel, 0.0f, 100.0f);
+        }
+        else if (type == ImpulseType.Pollution)
+        {
+            PollutionLevel += amount;
+            PollutionLevel = Mathf.Clamp(PollutionLevel, 0.0f, 100.0f);
+        }
+    }
+
+    public void Tick(TownGrid grid)
+    {
+        if (Type == CellType.WasteDump)
+        {
+            grid.Impulse(ImpulseType.Pollution, GridPos.x, GridPos.y, 5.0f, 1.0f);
+        }
+        else if (Type == CellType.WasteDump2)
+        {
+            grid.Impulse(ImpulseType.Pollution, GridPos.x, GridPos.y, 10.0f, 2.0f);
+        }
+        else if (Type == CellType.RecyclingPlant)
+        {
+            grid.Impulse(ImpulseType.Happiness, GridPos.x, GridPos.y, 10.0f, 2.0f);
+        }
+        else if (Type == CellType.RecyclingPlant2)
+        {
+            grid.Impulse(ImpulseType.Happiness, GridPos.x, GridPos.y, 20.0f, 3.0f);
+        }
+    }
+
+    public void PostTick(TownGrid grid)
+    {
+        // Update the gameobject to reflect the current pollution/happiness amount.
+        // Show a popup if it's beyond a certain level.
+        if (Object)
+        {
+            ApplyPollution(Object, PollutionLevel);
+        }
+    }
+
+    private float m_curPollution = 0.0f;
+    public void ApplyPollution(GameObject obj, float amt)
+    {
+        if (amt == m_curPollution)
+            return;
+        m_curPollution = amt;
+
+        foreach (var mesh in obj.GetComponentsInChildren<MeshRenderer>())
+        {
+            ApplyPollutionToMesh(mesh, amt);
+        }
+    }
+
+    private class MaterialMeta
+    {
+        public Material baseMat;
+        public Material instMat;
+    }
+
+    private static Dictionary<Material, MaterialMeta> clonedMats = new();
+    private void ApplyPollutionToMesh(MeshRenderer mesh, float amt)
+    {
+        float normalizedAmt = 1.0f - (amt / 100.0f);
+        // Ramp it.
+        normalizedAmt = Mathf.Lerp(0.5f, 1.0f, normalizedAmt);
+
+        Material[] mats = mesh.materials;
+        bool updatedMaterials = false;
+        for (int iMat = 0; iMat < mats.Length; ++iMat)
+        {
+            if (!clonedMats.TryGetValue(mats[iMat], out MaterialMeta meta))
+            {
+                var oldMat = mats[iMat];
+                var newMat = new Material(oldMat);
+
+                meta = new MaterialMeta() {
+                    baseMat = oldMat,
+                    instMat = newMat
+                };
+                clonedMats.Add(newMat, meta);
+
+                updatedMaterials = true;
+                mats[iMat] = newMat;
+            }
+
+            Material mat = mats[iMat];
+
+            Color baseColor = meta.baseMat.color;
+            mat.color = new Color(
+                baseColor.r * normalizedAmt,
+                baseColor.g * normalizedAmt,
+                baseColor.b * normalizedAmt,
+                baseColor.a);
+        }
+
+        if (updatedMaterials) mesh.SetMaterials(mats.ToList());
+    }
 }
 
 [System.Serializable]
@@ -71,6 +182,9 @@ public class TownGrid : MonoBehaviour
     public const float CellSize = 20.0f;
     public const int TownSize = 20;
 
+    private const int TicksPerUpdate = 30;
+    private int m_tick = 0;
+
     public List<GameObject> LandPrefabs;
     public RoadPrefabs RoadPrefabs;
     public List<GameObject> BuildingPrefabs;
@@ -86,12 +200,28 @@ public class TownGrid : MonoBehaviour
         GenerateLand();
         GenerateCity();
         GenerateRoads();
+
+        Cells[TownSize / 2, TownSize / 2].Type = CellType.WasteDump;
+
         InstantiateTown();
     }
 
     void Update()
     {
-        // update the town
+    }
+
+    private void FixedUpdate()
+    {
+        // Only tick in the waiting state.
+        if (GameManager.Instance.State != GameState.Waiting)
+            return;
+
+        m_tick++;
+        if (m_tick >= TicksPerUpdate)
+        {
+            m_tick = 0;
+            UpdateTown();
+        }
     }
 
     void BuildRoadCache()
@@ -217,5 +347,48 @@ public class TownGrid : MonoBehaviour
         if (type == CellType.Land) return true;
 
         return false;
+    }
+
+    public void Impulse(ImpulseType type, int _x, int _y, float radius, float amt)
+    {
+        int r = (int)(radius + 1.0f);
+        Vector2 center = new Vector2(_x, _y);
+        for (int y = _y - r; y <= _y + r; y++)
+        {
+            for (int x = _x - r; x <= _x + r; x++)
+            {
+                if (x < 0 || x >= TownSize || y < 0 || y >= TownSize)
+                    continue;
+
+                Vector2 pos = new Vector2(x, y);
+                float dist = Vector2.Distance(center, pos);
+                float factor = 1.0f - (dist / radius);
+                if (factor <= 0.0f)
+                    continue;
+
+                // This cell has been affected.
+                Cells[x, y].Impulse(type, factor * amt);
+            }
+        }
+    }
+
+    void UpdateTown()
+    {
+        for (int y = 0; y < TownSize; y++)
+        {
+            for (int x = 0; x < TownSize; x++)
+            {
+                Cells[x, y].Tick(this);
+            }
+        }
+
+        // Second tick to update the visual results after pollution impulse etc.
+        for (int y = 0; y < TownSize; y++)
+        {
+            for (int x = 0; x < TownSize; x++)
+            {
+                Cells[x, y].PostTick(this);
+            }
+        }
     }
 }

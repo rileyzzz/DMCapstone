@@ -85,6 +85,6 @@ public class CardOverlay : MonoBehaviour
         m_CardAnim.SetBool("visible", false);
         m_bCardsVisible = false;
 
-        GameManager.Instance.IncrementRound();
+        GameManager.Instance.SelectCard(card.CardData);
     }
 }

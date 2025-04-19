@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum GameState
+{
+    Waiting,
+    SelectingCard,
+    PlacingBuilding
+}
+
 /// <summary>
 /// Game manager singleton class.
 /// </summary>
@@ -19,8 +26,13 @@ public class GameManager : MonoBehaviour
     protected int m_currentRound = -1;
     public int CurrentRound => m_currentRound;
 
+    protected GameState m_state = GameState.Waiting;
+    public GameState State => m_state;
 
     private CardOverlay m_cardOverlay;
+    private TownGrid m_grid;
+
+    private GameObject m_buildingToPlace;
 
     void Start()
     {
@@ -35,6 +47,7 @@ public class GameManager : MonoBehaviour
 
         m_lastRoundTime = Time.time;
         m_cardOverlay = FindFirstObjectByType<CardOverlay>();
+        m_grid = FindFirstObjectByType<TownGrid>();
     }
 
     private void OnDestroy()
@@ -49,19 +62,47 @@ public class GameManager : MonoBehaviour
         if (m_currentRound >= m_numRounds)
             return;
 
-        // Game is paused while cards are on screen.
-        if (m_cardOverlay.CardsVisible)
-            return;
-
-        if ((Time.time - m_lastRoundTime) > m_timeBetweenRounds)
+        if (m_state == GameState.Waiting && ((Time.time - m_lastRoundTime) > m_timeBetweenRounds))
         {
+            m_state = GameState.SelectingCard;
             m_cardOverlay.ShowCards();
         }
+
+        if (m_state == GameState.PlacingBuilding)
+        {
+
+        }
+    }
+
+    public void SelectCard(CardData card)
+    {
+        if (card.BuildingToPlace)
+        {
+            BeginPlacingBuilding(card.BuildingToPlace);
+        }
+        else
+        {
+            IncrementRound();
+        }
+    }
+
+    void BeginPlacingBuilding(GameObject building)
+    {
+        m_state = GameState.PlacingBuilding;
+        m_buildingToPlace = building;
+    }
+
+    void PlaceBuilding()
+    {
+
+        IncrementRound();
     }
 
     // Move the game to the next round, displaying the new set of cards.
     public void IncrementRound()
     {
+        m_state = GameState.Waiting;
+
         if (m_currentRound >= m_numRounds)
         {
             // No rounds left, end the game.
