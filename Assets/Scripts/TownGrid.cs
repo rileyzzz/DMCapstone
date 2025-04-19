@@ -5,7 +5,12 @@ public enum CellType
 {
     Land,
     Road,
-    Building
+    Building,
+    Water,
+    WasteDump,
+    WasteDump2,
+    RecyclingPlant,
+    RecyclingPlant2,
 }
 
 class TownCell
@@ -205,5 +210,12 @@ public class TownGrid : MonoBehaviour
                 Cells[x, y].Instantiate(this);
             }
         }
+    }
+
+    bool CanPlaceCellAt(CellType type)
+    {
+        if (type == CellType.Land) return true;
+
+        return false;
     }
 }
