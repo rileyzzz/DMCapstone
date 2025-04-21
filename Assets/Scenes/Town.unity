@@ -179,6 +179,8 @@ MonoBehaviour:
   - {fileID: 5126292326178446058, guid: d6cf46f22ecbbaf49b9d65a979974a78, type: 3}
   WasteDumpPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
   RecyclingPlantPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
+  HeavyPollutionPrefab: {fileID: 2817042249049609423, guid: bdb540578f3764e4aadfb15735be7b23, type: 3}
+  HeavyHappyPrefab: {fileID: 2817042249049609423, guid: bdb540578f3764e4aadfb15735be7b23, type: 3}
 --- !u!1 &384008505
 GameObject:
   m_ObjectHideFlags: 0

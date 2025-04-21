@@ -36,13 +36,14 @@ class TownCell
     public GameObject SpecialPrefab;
     public SpecialCellProperties SpecialProps;
 
+    private GameObject HeavyPollutionObject;
+    private GameObject HeavyHappyObject;
+
     public void Instantiate(TownGrid grid)
     {
-        if (Object)
-        {
-            GameObject.Destroy(Object);
-            Object = null;
-        }
+        if (HeavyPollutionObject) GameObject.Destroy(HeavyPollutionObject);
+        if (HeavyHappyObject) GameObject.Destroy(HeavyHappyObject);
+        if (Object) GameObject.Destroy(Object);
 
         Vector3 cellPos = new Vector3(GridPos.x * TownGrid.CellSize, 0, GridPos.y * TownGrid.CellSize);
         if (Type == CellType.Land)
@@ -74,6 +75,13 @@ class TownCell
             Object.transform.localScale = Vector3.one * 1.001f;
 
             ReplaceMaterials();
+
+            // Do this after material replacement.
+            HeavyPollutionObject = GameObject.Instantiate(grid.HeavyPollutionPrefab, Object.transform);
+            HeavyPollutionObject.SetActive(false);
+
+            HeavyHappyObject = GameObject.Instantiate(grid.HeavyHappyPrefab, Object.transform);
+            HeavyHappyObject.SetActive(false);
         }
     }
 
@@ -119,6 +127,16 @@ class TownCell
         if (Object)
         {
             ApplyPollution(PollutionLevel);
+        }
+
+        if (HeavyHappyObject)
+        {
+            HeavyHappyObject.SetActive(HappinessLevel > 50.0f);
+        }
+
+        if (HeavyPollutionObject)
+        {
+            HeavyPollutionObject.SetActive(PollutionLevel > 50.0f);
         }
     }
 
@@ -169,7 +187,7 @@ class TownCell
                     instMat = mats[iMat]
                 });
             }
-            mesh.SetMaterials(mats.ToList());
+            mesh.materials = mats;
         }
     }
 }
@@ -198,6 +216,9 @@ public class TownGrid : MonoBehaviour
 
     public GameObject WasteDumpPrefab;
     public GameObject RecyclingPlantPrefab;
+
+    public GameObject HeavyPollutionPrefab;
+    public GameObject HeavyHappyPrefab;
 
     TownCell[,] Cells;
 
