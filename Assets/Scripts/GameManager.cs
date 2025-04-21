@@ -4,7 +4,8 @@ public enum GameState
 {
     Waiting,
     SelectingCard,
-    PlacingBuilding
+    PlacingBuilding,
+    GameOver
 }
 
 /// <summary>
@@ -21,9 +22,8 @@ public class GameManager : MonoBehaviour
 
     public float m_timeBetweenRounds = 20.0f;
 
-    // Start in a "pre-game" round.
     [HideInInspector]
-    protected int m_currentRound = -1;
+    protected int m_currentRound = 0;
     public int CurrentRound => m_currentRound;
 
     protected GameState m_state = GameState.Waiting;
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     private CardOverlay m_cardOverlay;
     private TownGrid m_grid;
+    private ScoreboardUI m_scoreboard;
 
     private BuildingType m_buildingToPlace;
     private GameObject m_placeHint;
@@ -38,7 +39,16 @@ public class GameManager : MonoBehaviour
     private int m_placeRot;
     private float m_flPlaceRot;
 
-    void Start()
+
+    private int m_playerMoney;
+    //private float m_currentHappiness;
+    //private float m_currentPollution;
+
+    public int PlayerMoney => m_playerMoney;
+    public float Happiness => m_grid?.TotalHappiness ?? 0.0f;
+    public float Pollution => m_grid?.TotalPollution ?? 0.0f;
+
+    private void Awake()
     {
         if (_Instance != null)
         {
@@ -49,9 +59,18 @@ public class GameManager : MonoBehaviour
 
         _Instance = this;
 
+        m_playerMoney = 10000;
+    }
+
+    void Start()
+    {
+        // m_currentHappiness = 35f;
+        // m_currentPollution = 0f;
+
         m_lastRoundTime = Time.time;
         m_cardOverlay = FindFirstObjectByType<CardOverlay>();
         m_grid = FindFirstObjectByType<TownGrid>();
+        m_scoreboard = FindFirstObjectByType<ScoreboardUI>();
     }
 
     private void OnDestroy()
@@ -85,6 +104,13 @@ public class GameManager : MonoBehaviour
 
     public void SelectCard(CardData card)
     {
+        m_playerMoney -= card.Cost;
+
+        if (m_scoreboard != null)
+        {
+            m_scoreboard.ApplyCardEffects(card);
+        }
+
         if (card.BuildingToPlace != BuildingType.None)
         {
             BeginPlacingBuilding(card.BuildingToPlace);
@@ -184,10 +210,20 @@ public class GameManager : MonoBehaviour
         if (m_currentRound >= m_numRounds)
         {
             // No rounds left, end the game.
+            m_state = GameState.GameOver;
+            m_scoreboard.EndGame();
             return;
         }
 
         m_lastRoundTime = Time.time;
         m_currentRound++;
+    }
+
+    public void UpdateUI()
+    {
+        if (m_state == GameState.GameOver)
+            return;
+
+        m_scoreboard?.UpdateUI();
     }
 }

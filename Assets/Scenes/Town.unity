@@ -1185,11 +1185,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073651401846755060, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 391.74994
+      value: 865
       objectReference: {fileID: 0}
     - target: {fileID: 3073651401846755060, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -264.125
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 3203070049030468045, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1253,11 +1253,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854310515104178875, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 755.74994
+      value: 1229
       objectReference: {fileID: 0}
     - target: {fileID: 3854310515104178875, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -264.125
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 4138406871328596261, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1590,8 +1590,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2012620652}
+  - {fileID: 1910078638}
   - {fileID: 208139335}
   - {fileID: 1395800004}
   - {fileID: 384008507}
   - {fileID: 997319156}
-  - {fileID: 1910078638}

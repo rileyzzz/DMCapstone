@@ -222,6 +222,12 @@ public class TownGrid : MonoBehaviour
 
     TownCell[,] Cells;
 
+    private float m_totalPollution;
+    private float m_totalHappiness;
+
+    public float TotalPollution => m_totalPollution;
+    public float TotalHappiness => m_totalHappiness;
+
     private Dictionary<(bool, bool, bool, bool), (GameObject road, int rotation)> _RoadCache;
     public Dictionary<(bool, bool, bool, bool), (GameObject road, int rotation)> RoadCache => _RoadCache;
 
@@ -426,6 +432,7 @@ public class TownGrid : MonoBehaviour
         }
     }
 
+
     void UpdateTown()
     {
         for (int y = 0; y < TownSize; y++)
@@ -437,12 +444,23 @@ public class TownGrid : MonoBehaviour
         }
 
         // Second tick to update the visual results after pollution impulse etc.
+        float totalPollution = 0.0f;
+        float totalHappiness = 0.0f;
+
         for (int y = 0; y < TownSize; y++)
         {
             for (int x = 0; x < TownSize; x++)
             {
                 Cells[x, y].PostTick(this);
+
+                totalPollution += Cells[x, y].PollutionLevel;
+                totalHappiness += Cells[x, y].HappinessLevel;
             }
         }
+
+        m_totalPollution = totalPollution / (TownSize * TownSize);
+        m_totalHappiness = totalHappiness / (TownSize * TownSize);
+
+        GameManager.Instance.UpdateUI();
     }
 }
