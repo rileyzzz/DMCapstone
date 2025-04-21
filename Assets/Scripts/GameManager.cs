@@ -81,10 +81,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Do nothing if game has ended.
-        if (m_currentRound >= m_numRounds)
-            return;
-
         if (m_state == GameState.Waiting && ((Time.time - m_lastRoundTime) > m_timeBetweenRounds))
         {
             m_state = GameState.SelectingCard;
@@ -205,18 +201,20 @@ public class GameManager : MonoBehaviour
     // Move the game to the next round, displaying the new set of cards.
     public void IncrementRound()
     {
-        m_state = GameState.Waiting;
+        m_currentRound++;
+        Debug.Log($"Increment round {m_currentRound}/{m_numRounds}");
 
         if (m_currentRound >= m_numRounds)
         {
             // No rounds left, end the game.
+            Debug.Log("Game over!");
             m_state = GameState.GameOver;
             m_scoreboard.EndGame();
             return;
         }
 
+        m_state = GameState.Waiting;
         m_lastRoundTime = Time.time;
-        m_currentRound++;
     }
 
     public void UpdateUI()
