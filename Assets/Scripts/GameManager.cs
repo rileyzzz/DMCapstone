@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     protected GameState m_state = GameState.Waiting;
     public GameState State => m_state;
 
+    public Material m_hintMat;
+
     private CardOverlay m_cardOverlay;
     private TownGrid m_grid;
     private ScoreboardUI m_scoreboard;
@@ -124,6 +126,10 @@ public class GameManager : MonoBehaviour
 
         var prefab = m_grid.GetBuildingPrefab(building);
         m_placeHint = Instantiate(prefab, transform);
+
+        foreach (var mesh in m_placeHint.GetComponentsInChildren<MeshRenderer>())
+            mesh.materials = new Material[] { m_hintMat };
+
         UpdatePlaceHint();
     }
 
@@ -165,6 +171,10 @@ public class GameManager : MonoBehaviour
 
         m_flPlaceRot = Mathf.SmoothDamp(m_flPlaceRot, targetRot, ref m_placeRotVel, smoothTime, 200.0f, Time.deltaTime);
         m_placeHint.transform.rotation = Quaternion.Euler(0, m_flPlaceRot, 0);
+
+        m_hintMat.color = m_grid.CanPlaceCellAt(m_buildingToPlace, m_placePos.x, m_placePos.y) ?
+            new Color(0.5f, 0.5f, 1.0f, 0.25f) :
+            new Color(1.0f, 0.5f, 0.5f, 0.25f);
     }
 
     void PlaceBuilding()
