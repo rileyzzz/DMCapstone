@@ -388,6 +388,9 @@ public class TownGrid : MonoBehaviour
 
     public bool CanPlaceCellAt(BuildingType building, int x, int y)
     {
+        if (x < 0 || x >= TownSize || y < 0 || y >= TownSize)
+            return false;
+
         if (Cells[x, y].Type == CellType.Land) return true;
 
         return false;
