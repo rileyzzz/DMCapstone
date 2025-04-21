@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: River Cleanup Initiative
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: River Cleanup Initiative
   Description: Provide the funds and information to begin a river clean up initiative
@@ -23,5 +24,5 @@ MonoBehaviour:
   EstimatedPollution: -50
   Cost: 7500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

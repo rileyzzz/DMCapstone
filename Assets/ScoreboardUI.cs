@@ -9,10 +9,7 @@ public class ScoreboardUI : MonoBehaviour
     public TextMeshProUGUI happinessText;
     public TextMeshProUGUI pollutionText;
 
-    private int turns = 1;
-    private int money = 10000;
-    private float happiness = 35f;
-    private int pollutedTiles = 100;
+    // private int money = 10000;
 
     private bool isGameEnding = false;
 
@@ -27,28 +24,23 @@ public class ScoreboardUI : MonoBehaviour
 
         Debug.Log($"Applying Card Effects: {card.Name}");
 
-        turns += 1;
-        money -= card.Cost;
-        happiness = Mathf.Clamp(happiness + card.EstimatedHappiness, 0, 100);
-        pollutedTiles += card.EstimatedPollution;
+        
+        // happiness = Mathf.Clamp(happiness + card.EstimatedHappiness, 0, 100);
+        // pollutedTiles += card.EstimatedPollution;
 
         UpdateUI();
-
-        if (turns > 10 && !isGameEnding)
-        {
-            isGameEnding = true;
-            StartCoroutine(EndGameAfterDelay(3f)); // Wait 3 seconds
-        }
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
-        Debug.Log($"Updated Scoreboard - Turns: {turns}, Money: {money}, Happiness: {happiness}, Pollution: {pollutedTiles}");
+        var gameManager = GameManager.Instance;
 
-        turnsText.text = $"{Mathf.Min(turns, 10)}/10";
-        moneyText.text = $"${money}";
-        happinessText.text = $"{happiness}%";
-        pollutionText.text = $"{pollutedTiles}";
+        // Debug.Log($"Updated Scoreboard - Turns: {turns}, Money: {money}, Happiness: {happiness}, Pollution: {pollutedTiles}");
+
+        turnsText.text = $"{Mathf.Min(gameManager.CurrentRound + 1, gameManager.m_numRounds)}/10";
+        moneyText.text = $"${gameManager.PlayerMoney}";
+        happinessText.text = $"{gameManager.Happiness:f2}%";
+        pollutionText.text = $"{gameManager.Pollution:f2}";
 
         turnsText.ForceMeshUpdate();
         moneyText.ForceMeshUpdate();
@@ -56,13 +48,23 @@ public class ScoreboardUI : MonoBehaviour
         pollutionText.ForceMeshUpdate();
     }
 
+    public void EndGame()
+    {
+        if (isGameEnding)
+            return;
+
+        isGameEnding = true;
+        StartCoroutine(EndGameAfterDelay(3f)); // Wait 3 seconds
+    }
+
+
     private System.Collections.IEnumerator EndGameAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        GameResults.Money = money;
-        GameResults.Happiness = happiness;
-        GameResults.Pollution = pollutedTiles;
+        GameResults.Money = GameManager.Instance.PlayerMoney;
+        GameResults.Happiness = GameManager.Instance.Happiness;
+        GameResults.Pollution = (int)GameManager.Instance.Pollution;
         // TODO: Store or pass final stats if needed before scene switch
         SceneManager.LoadScene("Scoring"); // Replace with your actual end scene name
     }

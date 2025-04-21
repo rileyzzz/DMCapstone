@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Expand Public Awareness
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Expand Public Awareness
   Description: Provide information to consumers on proper waste disposal
@@ -21,5 +22,5 @@ MonoBehaviour:
   EstimatedPollution: -10
   Cost: 250
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

@@ -9,19 +9,13 @@ public class CardOverlay : MonoBehaviour
 
     private HashSet<CardData> m_CardsPreviouslyShown = new();
 
-    private ScoreboardUI scoreboard;
+    //private ScoreboardUI scoreboard;
 
     private bool m_bCardsVisible = false;
     public bool CardsVisible => m_bCardsVisible;
 
     private void Start()
     {
-        scoreboard = FindObjectOfType<ScoreboardUI>();
-
-        if (scoreboard == null)
-        {
-            Debug.LogError("Could not find ScoreboardUI in the scene!");
-        }
     }
 
     private void SetRandomCards()
@@ -65,26 +59,21 @@ public class CardOverlay : MonoBehaviour
 
         Debug.Log($"Card {card} clicked!");
 
-        if (scoreboard == null)
-        {
-            Debug.LogError("ScoreboardUI not found!");
-            return;
-        }
+        //if (scoreboard == null)
+        //{
+        //    Debug.LogError("ScoreboardUI not found!");
+        //    return;
+        //}
         if (card.CardData == null)
         {
             Debug.LogError("CardData is null!");
             return;
         }
 
-        if (scoreboard != null && card.CardData != null)
-        {
-            scoreboard.ApplyCardEffects(card.CardData);
-        }
-
         // Play the hide animation
         m_CardAnim.SetBool("visible", false);
         m_bCardsVisible = false;
 
-        GameManager.Instance.IncrementRound();
+        GameManager.Instance.SelectCard(card.CardData);
     }
 }

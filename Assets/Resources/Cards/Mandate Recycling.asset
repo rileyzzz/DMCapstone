@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mandate Recycling
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Mandate Recycling
   Description: Make recycling mandatory throughout the town
@@ -22,5 +23,5 @@ MonoBehaviour:
   EstimatedPollution: -30
   Cost: 2500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Monetize Waste Energy
   m_EditorClassIdentifier: 
   Archetype: 1
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Monetize Waste Energy
   Description: Invest in research that turn waste into energy source
@@ -21,5 +22,5 @@ MonoBehaviour:
   EstimatedPollution: -20
   Cost: 1750
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Expand Landfill
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Expand Landfill
   Description: Cut down adjacent forests to expand your landfill
@@ -20,6 +21,6 @@ MonoBehaviour:
   EstimatedHappiness: 10
   EstimatedPollution: 30
   Cost: 3000
-  Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  Action: 2
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

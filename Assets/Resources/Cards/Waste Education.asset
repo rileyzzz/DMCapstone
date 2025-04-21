@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Waste Education
   m_EditorClassIdentifier: 
   Archetype: 3
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Waste Education
   Description: 'Provide a more in-depth education program for people who may be interested
@@ -23,5 +24,5 @@ MonoBehaviour:
   EstimatedPollution: -70
   Cost: 3000
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

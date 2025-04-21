@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Public Recycling
   m_EditorClassIdentifier: 
   Archetype: 3
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Public Recycling
   Description: Provide certain areas with free recycling services to encourage the
@@ -23,5 +24,5 @@ MonoBehaviour:
   EstimatedPollution: -15
   Cost: 1500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0
