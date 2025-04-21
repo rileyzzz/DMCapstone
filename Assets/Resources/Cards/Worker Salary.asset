@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Worker Salary
   m_EditorClassIdentifier: 
   Archetype: 3
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Worker Salary
   Description: Increase Workers Salaries
@@ -21,5 +22,5 @@ MonoBehaviour:
   EstimatedPollution: 10
   Cost: 2500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

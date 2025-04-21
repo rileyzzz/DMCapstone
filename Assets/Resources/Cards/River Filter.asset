@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: River Filter
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: River Filter
   Description: Develop a river waste collector/filter that will reduce runoff and
@@ -22,5 +23,5 @@ MonoBehaviour:
   EstimatedPollution: -35
   Cost: 5500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

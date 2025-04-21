@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LandPrefabs:
   - {fileID: 3155501840005669725, guid: 38497e9491c3e1547baa679760fd82c4, type: 3}
+  - {fileID: 3606446108585260073, guid: 4b07aa2c4a0070f42ab81fa0c4a56597, type: 3}
   RoadPrefabs:
     Straight: {fileID: 100000, guid: 4f32dfddb033d3e40b5841bc53cc1689, type: 3}
     IntersectionT: {fileID: 100000, guid: 9bff4c4ffbc29a041a638ec3743c588d, type: 3}
@@ -173,6 +174,11 @@ MonoBehaviour:
   BuildingPrefabs:
   - {fileID: 5194115791326603905, guid: f7a4687f31da0ce4a9e7da3cb4860a29, type: 3}
   - {fileID: 1855990319343060512, guid: be987dd835dd5a5479b18227d28350d4, type: 3}
+  - {fileID: 6417633994558248338, guid: 423c2fc65efed82439ed5a5fea23f2b3, type: 3}
+  - {fileID: 4042693072322198682, guid: c773f4c939cbfd54e919aacf114dd39c, type: 3}
+  - {fileID: 5126292326178446058, guid: d6cf46f22ecbbaf49b9d65a979974a78, type: 3}
+  WasteDumpPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
+  RecyclingPlantPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
 --- !u!1 &384008505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073651401846755060, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 399.25006
+      value: 391.74994
       objectReference: {fileID: 0}
     - target: {fileID: 3073651401846755060, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1245,7 +1251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854310515104178875, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 763.25006
+      value: 755.74994
       objectReference: {fileID: 0}
     - target: {fileID: 3854310515104178875, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.y

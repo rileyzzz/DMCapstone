@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Recycling Expansion
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Recycling Expansion
   Description: Expand waste management option by providing recycling
@@ -22,5 +23,5 @@ MonoBehaviour:
   EstimatedPollution: -35
   Cost: 5000
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

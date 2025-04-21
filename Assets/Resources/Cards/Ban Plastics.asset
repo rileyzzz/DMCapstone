@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ban Plastics
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Ban Plastics
   Description: Ban single use plastics in town
@@ -21,5 +22,5 @@ MonoBehaviour:
   EstimatedPollution: -40
   Cost: -500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

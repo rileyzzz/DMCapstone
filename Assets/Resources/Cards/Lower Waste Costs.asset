@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Lower Waste Costs
   m_EditorClassIdentifier: 
   Archetype: 2
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Lower Waste Costs
   Description: Reduce money spent on trucks & workers to collect wastes
@@ -22,5 +23,5 @@ MonoBehaviour:
   EstimatedPollution: 15
   Cost: -3500
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

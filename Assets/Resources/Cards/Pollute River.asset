@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pollute River
   m_EditorClassIdentifier: 
   Archetype: 3
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Pollute River
   Description: Put overflow waste into river
@@ -22,5 +23,5 @@ MonoBehaviour:
   EstimatedPollution: 25
   Cost: -1000
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

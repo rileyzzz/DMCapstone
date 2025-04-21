@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Build New Waste Dump
   m_EditorClassIdentifier: 
   Archetype: 1
+  Dependencies: []
   Icon: {fileID: 0}
-  Name: Build Wew Waste Dump
+  Name: Build New Waste Dump
   Description: Construct a new waste dump in order to handle the large sum of waste
     produced by the town
   HintText: WIll reduce pollution caused from the other waste facilities overflow,
@@ -23,5 +24,5 @@ MonoBehaviour:
   EstimatedPollution: -10
   Cost: 3750
   Action: 2
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

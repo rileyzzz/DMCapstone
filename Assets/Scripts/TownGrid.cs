@@ -7,17 +7,21 @@ public enum CellType
     Land,
     Road,
     Building,
-    Water,
-    WasteDump,
-    WasteDump2,
-    RecyclingPlant,
-    RecyclingPlant2,
+    Special,
+    Water
 }
 
 public enum ImpulseType
 {
     Happiness,
     Pollution
+}
+
+public struct SpecialCellProperties
+{
+    public ImpulseType Impulse;
+    public float Radius;
+    public float Amount;
 }
 
 class TownCell
@@ -28,9 +32,17 @@ class TownCell
     public float HappinessLevel;
     private GameObject Object;
 
+    public int SpecialRot;
+    public GameObject SpecialPrefab;
+    public SpecialCellProperties SpecialProps;
+
     public void Instantiate(TownGrid grid)
     {
-        if (Object) GameObject.Destroy(Object);
+        if (Object)
+        {
+            GameObject.Destroy(Object);
+            Object = null;
+        }
 
         Vector3 cellPos = new Vector3(GridPos.x * TownGrid.CellSize, 0, GridPos.y * TownGrid.CellSize);
         if (Type == CellType.Land)
@@ -49,6 +61,19 @@ class TownCell
             var prefab = grid.BuildingPrefabs[Random.Range(0, grid.BuildingPrefabs.Count)];
             var rot = Quaternion.Euler(0, 90.0f * Random.Range(0, 3), 0.0f);
             Object = GameObject.Instantiate(prefab, cellPos, rot, grid.transform);
+        }
+        else if (Type == CellType.Special)
+        {
+            var rot = Quaternion.Euler(0, 90.0f * SpecialRot, 0.0f);
+            Object = GameObject.Instantiate(SpecialPrefab, cellPos, rot, grid.transform);
+        }
+
+        if (Object)
+        {
+            // scale up a tiny bit to prevent seams.
+            Object.transform.localScale = Vector3.one * 1.001f;
+
+            ReplaceMaterials();
         }
     }
 
@@ -81,21 +106,9 @@ class TownCell
 
     public void Tick(TownGrid grid)
     {
-        if (Type == CellType.WasteDump)
+        if (Type == CellType.Special)
         {
-            grid.Impulse(ImpulseType.Pollution, GridPos.x, GridPos.y, 5.0f, 1.0f);
-        }
-        else if (Type == CellType.WasteDump2)
-        {
-            grid.Impulse(ImpulseType.Pollution, GridPos.x, GridPos.y, 10.0f, 2.0f);
-        }
-        else if (Type == CellType.RecyclingPlant)
-        {
-            grid.Impulse(ImpulseType.Happiness, GridPos.x, GridPos.y, 10.0f, 2.0f);
-        }
-        else if (Type == CellType.RecyclingPlant2)
-        {
-            grid.Impulse(ImpulseType.Happiness, GridPos.x, GridPos.y, 20.0f, 3.0f);
+            grid.Impulse(SpecialProps.Impulse, GridPos.x, GridPos.y, SpecialProps.Radius, SpecialProps.Amount);
         }
     }
 
@@ -105,66 +118,59 @@ class TownCell
         // Show a popup if it's beyond a certain level.
         if (Object)
         {
-            ApplyPollution(Object, PollutionLevel);
+            ApplyPollution(PollutionLevel);
         }
     }
 
     private float m_curPollution = 0.0f;
-    public void ApplyPollution(GameObject obj, float amt)
+    public void ApplyPollution(float amt)
     {
         if (amt == m_curPollution)
             return;
         m_curPollution = amt;
 
-        foreach (var mesh in obj.GetComponentsInChildren<MeshRenderer>())
-        {
-            ApplyPollutionToMesh(mesh, amt);
-        }
-    }
-
-    private class MaterialMeta
-    {
-        public Material baseMat;
-        public Material instMat;
-    }
-
-    private static Dictionary<Material, MaterialMeta> clonedMats = new();
-    private void ApplyPollutionToMesh(MeshRenderer mesh, float amt)
-    {
         float normalizedAmt = 1.0f - (amt / 100.0f);
         // Ramp it.
         normalizedAmt = Mathf.Lerp(0.5f, 1.0f, normalizedAmt);
 
-        Material[] mats = mesh.materials;
-        bool updatedMaterials = false;
-        for (int iMat = 0; iMat < mats.Length; ++iMat)
+        foreach (var meta in m_instMaterials)
         {
-            if (!clonedMats.TryGetValue(mats[iMat], out MaterialMeta meta))
+            meta.instMat.color = new Color(
+                meta.primary.r * normalizedAmt,
+                meta.primary.g * normalizedAmt,
+                meta.primary.b * normalizedAmt,
+                meta.primary.a);
+        }
+    }
+
+    private struct MaterialMeta
+    {
+        public Color primary;
+        public Material instMat;
+    }
+
+    private List<MaterialMeta> m_instMaterials = new();
+
+    private void ReplaceMaterials()
+    {
+        m_instMaterials.Clear();
+
+        foreach (var mesh in Object.GetComponentsInChildren<MeshRenderer>())
+        {
+            Material[] mats = mesh.materials;
+            for (int iMat = 0; iMat < mats.Length; ++iMat)
             {
                 var oldMat = mats[iMat];
-                var newMat = new Material(oldMat);
+                mats[iMat] = new Material(mats[iMat]);
 
-                meta = new MaterialMeta() {
-                    baseMat = oldMat,
-                    instMat = newMat
-                };
-                clonedMats.Add(newMat, meta);
-
-                updatedMaterials = true;
-                mats[iMat] = newMat;
+                Color baseColor = oldMat.color;
+                m_instMaterials.Add(new MaterialMeta() {
+                    primary = oldMat.color,
+                    instMat = mats[iMat]
+                });
             }
-
-            Material mat = mats[iMat];
-
-            Color baseColor = meta.baseMat.color;
-            mat.color = new Color(
-                baseColor.r * normalizedAmt,
-                baseColor.g * normalizedAmt,
-                baseColor.b * normalizedAmt,
-                baseColor.a);
+            mesh.SetMaterials(mats.ToList());
         }
-
-        if (updatedMaterials) mesh.SetMaterials(mats.ToList());
     }
 }
 
@@ -176,6 +182,7 @@ public struct RoadPrefabs
     public GameObject IntersectionFourWay;
     public GameObject CurveL;
 }
+
 
 public class TownGrid : MonoBehaviour
 {
@@ -189,6 +196,9 @@ public class TownGrid : MonoBehaviour
     public RoadPrefabs RoadPrefabs;
     public List<GameObject> BuildingPrefabs;
 
+    public GameObject WasteDumpPrefab;
+    public GameObject RecyclingPlantPrefab;
+
     TownCell[,] Cells;
 
     private Dictionary<(bool, bool, bool, bool), (GameObject road, int rotation)> _RoadCache;
@@ -201,7 +211,7 @@ public class TownGrid : MonoBehaviour
         GenerateCity();
         GenerateRoads();
 
-        Cells[TownSize / 2, TownSize / 2].Type = CellType.WasteDump;
+        // Cells[TownSize / 2, TownSize / 2].Type = CellType.WasteDump;
 
         InstantiateTown();
     }
@@ -222,6 +232,13 @@ public class TownGrid : MonoBehaviour
             m_tick = 0;
             UpdateTown();
         }
+    }
+
+    public GameObject GetBuildingPrefab(BuildingType type)
+    {
+        if (type == BuildingType.WasteDump) return WasteDumpPrefab;
+        if (type == BuildingType.RecyclingPlant) return RecyclingPlantPrefab;
+        return null;
     }
 
     void BuildRoadCache()
@@ -342,11 +359,27 @@ public class TownGrid : MonoBehaviour
         }
     }
 
-    bool CanPlaceCellAt(CellType type)
+    public bool CanPlaceCellAt(BuildingType building, int x, int y)
     {
-        if (type == CellType.Land) return true;
+        if (Cells[x, y].Type == CellType.Land) return true;
 
         return false;
+    }
+
+    public bool PlaceCell(BuildingType building, int x, int y, int rot, in SpecialCellProperties props)
+    {
+        if (x < 0 || x >= TownSize || y < 0 || y >= TownSize || !CanPlaceCellAt(building, x, y))
+            return false;
+
+        Cells[x, y].Type = CellType.Special;
+        Cells[x, y].SpecialPrefab = GetBuildingPrefab(building);
+        Cells[x, y].SpecialRot = rot;
+        Cells[x, y].SpecialProps = props;
+
+        // Update the map.
+        Cells[x, y].Instantiate(this);
+
+        return true;
     }
 
     public void Impulse(ImpulseType type, int _x, int _y, float radius, float amt)

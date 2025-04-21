@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TestCard
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Research Eco-Friendly
   Description: Research ways to improve environmental conservation
@@ -21,5 +22,5 @@ MonoBehaviour:
   EstimatedPollution: -10
   Cost: 1000
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Coorporate Sponsor
   m_EditorClassIdentifier: 
   Archetype: 2
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Coorporate Sponsor
   Description: 'Reach out and acquire money from different corporate sponsors to
@@ -22,5 +23,5 @@ MonoBehaviour:
   EstimatedPollution: 0
   Cost: -5000
   Action: 0
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  BuildingToUnlock: 0
+  BuildingToPlace: 0

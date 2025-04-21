@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Build Recycling
   m_EditorClassIdentifier: 
   Archetype: 0
+  Dependencies: []
   Icon: {fileID: 0}
   Name: Build Recycling
   Description: Build a recycling plant in town to allow for recycling collection
@@ -20,6 +21,6 @@ MonoBehaviour:
   EstimatedHappiness: 5
   EstimatedPollution: -10
   Cost: 6500
-  Action: 1
-  BuildingToUnlock: {fileID: 0}
-  BuildingToPlace: {fileID: 0}
+  Action: 2
+  BuildingToUnlock: 0
+  BuildingToPlace: 0
