@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96dcdd301c218749aa1f071b0ae62a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: SimplePoly City - Low Poly Assets_Demo Scene
+  sceneToLoad: Town
 --- !u!114 &628109149
 MonoBehaviour:
   m_ObjectHideFlags: 0
