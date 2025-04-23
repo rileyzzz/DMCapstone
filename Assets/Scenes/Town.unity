@@ -178,7 +178,7 @@ MonoBehaviour:
   - {fileID: 4042693072322198682, guid: c773f4c939cbfd54e919aacf114dd39c, type: 3}
   - {fileID: 5126292326178446058, guid: d6cf46f22ecbbaf49b9d65a979974a78, type: 3}
   WasteDumpPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
-  RecyclingPlantPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
+  RecyclingPlantPrefab: {fileID: 2080995833081975662, guid: ef4a7f3c3f0cafe439e6db6a728985c2, type: 3}
   HeavyPollutionPrefab: {fileID: 2817042249049609423, guid: bdb540578f3764e4aadfb15735be7b23, type: 3}
   HeavyHappyPrefab: {fileID: 2817042249049609423, guid: bdb540578f3764e4aadfb15735be7b23, type: 3}
 --- !u!1 &384008505
@@ -1186,11 +1186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3073651401846755060, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 391.74994
+      value: 339.25
       objectReference: {fileID: 0}
     - target: {fileID: 3073651401846755060, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -259.125
+      value: -298.625
       objectReference: {fileID: 0}
     - target: {fileID: 3203070049030468045, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1254,11 +1254,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854310515104178875, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 755.74994
+      value: 703.25
       objectReference: {fileID: 0}
     - target: {fileID: 3854310515104178875, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -259.125
+      value: -298.625
       objectReference: {fileID: 0}
     - target: {fileID: 4138406871328596261, guid: 84bd45160e1f9ad4da6d733daf95d0fb, type: 3}
       propertyPath: m_AnchorMax.y
