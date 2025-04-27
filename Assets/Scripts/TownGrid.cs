@@ -76,6 +76,10 @@ class TownCell
 
             ReplaceMaterials();
 
+            // Update pollution on the new materials.
+            m_curPollution = 0.0f;
+            ApplyPollution(PollutionLevel);
+
             // Do this after material replacement.
             HeavyPollutionObject = GameObject.Instantiate(grid.HeavyPollutionPrefab, Object.transform);
             HeavyPollutionObject.SetActive(false);
@@ -146,7 +150,7 @@ class TownCell
         if (amt == m_curPollution)
             return;
         m_curPollution = amt;
-
+        
         float normalizedAmt = 1.0f - (amt / 100.0f);
         // Ramp it.
         normalizedAmt = Mathf.Lerp(0.5f, 1.0f, normalizedAmt);
