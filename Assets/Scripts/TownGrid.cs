@@ -153,14 +153,15 @@ class TownCell
             ApplyPollution(PollutionLevel);
         }
 
+        bool canHavePFX = (Type == CellType.Building || Type == CellType.Special);
         if (HeavyHappyObject)
         {
-            HeavyHappyObject.SetActive(HappinessLevel > 50.0f);
+            HeavyHappyObject.SetActive(canHavePFX && HappinessLevel > 50.0f);
         }
 
         if (HeavyPollutionObject)
         {
-            HeavyPollutionObject.SetActive(PollutionLevel > 50.0f);
+            HeavyPollutionObject.SetActive(canHavePFX && PollutionLevel > 50.0f);
         }
     }
 

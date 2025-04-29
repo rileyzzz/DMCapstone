@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public int m_numRounds = 10;
 
-    public float m_timeBetweenRounds = 20.0f;
+    private const float m_timeBetweenRounds = 15.0f;
 
     [HideInInspector]
     protected int m_currentRound = 0;
@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
     {
         if (m_state == GameState.Waiting && ((Time.time - m_lastRoundTime) > m_timeBetweenRounds))
         {
+            Debug.Log($"time {m_lastRoundTime} -> {Time.time}");
             m_state = GameState.SelectingCard;
             m_cardOverlay.ShowCards();
         }
@@ -248,11 +249,11 @@ public class GameManager : MonoBehaviour
         }
         else if (type == BuildingType.WasteDump)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse(ImpulseType.Happiness, 30.0f, 0.2f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse(ImpulseType.Happiness, 30.0f, 0.1f) };
         }
         else if (type == BuildingType.WasteDump2)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 15.0f, 1.25f), new Impulse(ImpulseType.Happiness, 40.0f, 0.3f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 15.0f, 1.25f), new Impulse(ImpulseType.Happiness, 40.0f, 0.2f) };
         }
         else if (type == BuildingType.Incinerator)
         {
@@ -286,6 +287,9 @@ public class GameManager : MonoBehaviour
             // Use cone volume formula to estimate the pollution impact over time.
             // This estimates total pollution impact for one tick.
             float volume = Mathf.PI * (impulse.Radius * impulse.Radius) * (impulse.Amount / 3.0f);
+            
+            // hack, weight it a bit since stuff gets clamped after it hits 100.
+            volume *= 0.25f;
 
             // And for the remainder of the game (total number of town ticks left), averaged over cell count...
             float impact = (totalUpdateTicks * volume) / (TownGrid.TownSize * TownGrid.TownSize);
