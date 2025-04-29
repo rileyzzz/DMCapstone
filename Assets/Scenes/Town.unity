@@ -167,6 +167,7 @@ MonoBehaviour:
   - {fileID: 3155501840005669725, guid: 38497e9491c3e1547baa679760fd82c4, type: 3}
   - {fileID: 6199039472911999463, guid: 3faeb9e6a4db02c42b266d79b58f6e2b, type: 3}
   - {fileID: 3656649781631101613, guid: 428f40db72dcc0b41b567f965a0a8d70, type: 3}
+  LakePrefab: {fileID: 2156783494670870809, guid: c2002e03b7c89e14abb476a13ee03f23, type: 3}
   RoadPrefabs:
     Straight: {fileID: 100000, guid: 4f32dfddb033d3e40b5841bc53cc1689, type: 3}
     IntersectionT: {fileID: 100000, guid: 9bff4c4ffbc29a041a638ec3743c588d, type: 3}
@@ -180,7 +181,13 @@ MonoBehaviour:
   - {fileID: 5126292326178446058, guid: d6cf46f22ecbbaf49b9d65a979974a78, type: 3}
   - {fileID: 3606446108585260073, guid: 4b07aa2c4a0070f42ab81fa0c4a56597, type: 3}
   WasteDumpPrefab: {fileID: 8322401676892512609, guid: bba1b1056cb1c6441805766e69e0c3e7, type: 3}
+  WasteDump2Prefab: {fileID: 1163825692915547946, guid: 2f98e50a3a493404684257887dacea39, type: 3}
   RecyclingPlantPrefab: {fileID: 2080995833081975662, guid: ef4a7f3c3f0cafe439e6db6a728985c2, type: 3}
+  RecyclingPlant2Prefab: {fileID: 1402066532427308902, guid: 498428188199dc34ab3e2e3694b41679, type: 3}
+  IncineratorPrefab: {fileID: 8861501079977430007, guid: 23abb12c78c187740a2ec8ad05d2105c, type: 3}
+  CompostPrefab: {fileID: 5579257300863655441, guid: d0d8cc0caefd8804a8d636c8d6000a36, type: 3}
+  WasteSorterPrefab: {fileID: 4405018641857712808, guid: 9a2a53a1591560b4bbeef15b9f143a8e, type: 3}
+  LakeFilterPrefab: {fileID: 3681295645299932878, guid: 65eaa882fcd6ee34b9560357d1013e14, type: 3}
   HeavyPollutionPrefab: {fileID: 2817042249049609423, guid: bdb540578f3764e4aadfb15735be7b23, type: 3}
   HeavyHappyPrefab: {fileID: 2817042249049609423, guid: ecc031865f0888845a77374c365ac279, type: 3}
 --- !u!1 &384008505

@@ -105,8 +105,16 @@ public class GameManager : MonoBehaviour
     // Choose cards at random from the deck.
 
     private HashSet<CardData> m_CardsPreviouslyShown = new();
+    private Dictionary<CardData, int> m_TimesCardPlayed = new();
+    public bool HasCardBeenPlayed(CardData card) => m_TimesCardPlayed.ContainsKey(card);
 
-    public bool HasCardBeenPlayed(CardData card) => m_CardsPreviouslyShown.Contains(card);
+    public int GetTimesCardPlayed(CardData card)
+    {
+        if (m_TimesCardPlayed.TryGetValue(card, out int count))
+            return count;
+
+        return 0;
+    }
 
     public void ChooseCardsFromDeck(out CardData card0, out CardData card1)
     {
@@ -148,6 +156,11 @@ public class GameManager : MonoBehaviour
     public void SelectCard(CardData card)
     {
         m_playerMoney -= card.Cost;
+
+        if (!m_TimesCardPlayed.ContainsKey(card))
+            m_TimesCardPlayed.Add(card, 1);
+        else
+            m_TimesCardPlayed[card] = m_TimesCardPlayed[card] + 1;
 
         if (m_scoreboard != null)
         {
@@ -227,15 +240,35 @@ public class GameManager : MonoBehaviour
         SpecialCellProperties props = new();
         if (m_buildingToPlace == BuildingType.RecyclingPlant)
         {
-            props.Impulse = ImpulseType.Happiness;
-            props.Radius = 5.0f;
-            props.Amount = 1.0f;
+            props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 5.0f, 1.0f) };
+        }
+        else if (m_buildingToPlace == BuildingType.RecyclingPlant2)
+        {
+            props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 10.0f, 2.0f) };
         }
         else if (m_buildingToPlace == BuildingType.WasteDump)
         {
-            props.Impulse = ImpulseType.Pollution;
-            props.Radius = 10.0f;
-            props.Amount = 1.5f;
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse( ImpulseType.Happiness, 30.0f, 0.2f ) };
+        }
+        else if (m_buildingToPlace == BuildingType.WasteDump2)
+        {
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 15.0f, 1.25f), new Impulse(ImpulseType.Happiness, 40.0f, 0.3f) };
+        }
+        else if (m_buildingToPlace == BuildingType.Incinerator)
+        {
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, 0.2f) };
+        }
+        else if (m_buildingToPlace == BuildingType.CompostPlant)
+        {
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, -0.2f) };
+        }
+        else if (m_buildingToPlace == BuildingType.WasteSorter)
+        {
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 5.0f, -0.5f) };
+        }
+        else if (m_buildingToPlace == BuildingType.LakeFilter)
+        {
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 3.0f, -0.75f) };
         }
 
         if (m_grid.PlaceCell(m_buildingToPlace, m_placePos.x, m_placePos.y, m_placeRot, props))

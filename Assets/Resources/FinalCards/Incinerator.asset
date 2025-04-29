@@ -17,6 +17,7 @@ MonoBehaviour:
   - Type: 0
     CardRequired: {fileID: 11400000, guid: 0a42bf0a80b059c4cbe9e547bfc0a9de, type: 2}
     BuildingRequired: 0
+    MaxTimesPlayed: 0
   Icon: {fileID: 0}
   Name: Waste To Energy
   Description: Create a landfill incinerator to provide a way to produce energy from
@@ -25,7 +26,7 @@ MonoBehaviour:
     chance of landfill overflow disaster
   EstimatedHappiness: 15
   EstimatedPollution: -20
-  Cost: -2500
+  Cost: 2500
   Action: 2
   BuildingToUnlock: 0
   BuildingToPlace: 5

@@ -39,6 +39,8 @@ public class ScoreboardUI : MonoBehaviour
 
         turnsText.text = $"{Mathf.Min(gameManager.CurrentRound + 1, gameManager.m_numRounds)}/10";
         moneyText.text = $"${gameManager.PlayerMoney}";
+        if (gameManager.PlayerMoney < 0) moneyText.color = Color.red;
+
         happinessText.text = $"{gameManager.Happiness:f2}%";
         pollutionText.text = $"{gameManager.Pollution:f2}";
 

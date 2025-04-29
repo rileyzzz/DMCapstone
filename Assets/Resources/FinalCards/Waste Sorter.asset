@@ -15,8 +15,9 @@ MonoBehaviour:
   Archetype: 1
   Dependencies:
   - Type: 0
-    CardRequired: {fileID: 11400000, guid: 0a42bf0a80b059c4cbe9e547bfc0a9de, type: 2}
+    CardRequired: {fileID: 11400000, guid: c6ecfef02be786742abcdc9d699dc100, type: 2}
     BuildingRequired: 0
+    MaxTimesPlayed: 0
   Icon: {fileID: 0}
   Name: Auto Sort Waste
   Description: Automatic waste segregation machine that improves recycling

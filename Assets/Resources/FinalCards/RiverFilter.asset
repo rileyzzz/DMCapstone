@@ -17,6 +17,11 @@ MonoBehaviour:
   - Type: 0
     CardRequired: {fileID: 11400000, guid: 5ea9e4dd66435384488ed92cba1ab0ba, type: 2}
     BuildingRequired: 0
+    MaxTimesPlayed: 0
+  - Type: 2
+    CardRequired: {fileID: 0}
+    BuildingRequired: 0
+    MaxTimesPlayed: 2
   Icon: {fileID: 0}
   Name: River Filter
   Description: Develop a river waste collector/filter that will reduce runoff and

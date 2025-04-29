@@ -39,7 +39,8 @@ public enum BuildingType
 public enum DependencyType
 {
     CardPlayed,
-    HasBuildingOfType
+    HasBuildingOfType,
+    PlayOnlyNTimes
 }
 
 [System.Serializable]
@@ -49,6 +50,7 @@ public struct CardDependency
 
     public CardData CardRequired;
     public BuildingType BuildingRequired;
+    public int MaxTimesPlayed;
 }
 
 
@@ -95,6 +97,10 @@ public class CardData : ScriptableObject
                     break;
                 case DependencyType.HasBuildingOfType:
                     if (GameManager.Instance.GetBuildingCountInTown(dep.BuildingRequired) == 0)
+                        return false;
+                    break;
+                case DependencyType.PlayOnlyNTimes:
+                    if (GameManager.Instance.GetTimesCardPlayed(this) >= dep.MaxTimesPlayed)
                         return false;
                     break;
             }

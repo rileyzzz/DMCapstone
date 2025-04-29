@@ -17,11 +17,23 @@ public enum ImpulseType
     Pollution
 }
 
-public struct SpecialCellProperties
+public struct Impulse
 {
-    public ImpulseType Impulse;
+    public ImpulseType Type;
     public float Radius;
     public float Amount;
+
+    public Impulse(ImpulseType type, float radius, float amt)
+    {
+        this.Type = type;
+        this.Radius = radius;
+        this.Amount = amt;
+    }
+}
+
+public struct SpecialCellProperties
+{
+    public Impulse[] Impulses;
 }
 
 class TownCell
@@ -68,6 +80,12 @@ class TownCell
         {
             var rot = Quaternion.Euler(0, 90.0f * SpecialRot, 0.0f);
             Object = GameObject.Instantiate(SpecialPrefab, cellPos, rot, grid.transform);
+        }
+        else if (Type == CellType.Water)
+        {
+            var prefab = grid.LakePrefab;
+            var rot = Quaternion.Euler(0, 90.0f * Random.Range(0, 3), 0.0f);
+            Object = GameObject.Instantiate(prefab, cellPos, rot, grid.transform);
         }
 
         if (Object)
@@ -121,7 +139,8 @@ class TownCell
     {
         if (Type == CellType.Special)
         {
-            grid.Impulse(SpecialProps.Impulse, GridPos.x, GridPos.y, SpecialProps.Radius, SpecialProps.Amount);
+            foreach (var imp in SpecialProps.Impulses)
+                grid.Impulse(imp.Type, GridPos.x, GridPos.y, imp.Radius, imp.Amount);
         }
     }
 
@@ -216,6 +235,7 @@ public class TownGrid : MonoBehaviour
     private int m_tick = 0;
 
     public List<GameObject> LandPrefabs;
+    public GameObject LakePrefab;
     public RoadPrefabs RoadPrefabs;
     public List<GameObject> BuildingPrefabs;
 
@@ -250,6 +270,7 @@ public class TownGrid : MonoBehaviour
         GenerateLand();
         GenerateCity();
         GenerateRoads();
+        GenerateLakes();
 
         // Cells[TownSize / 2, TownSize / 2].Type = CellType.WasteDump;
 
@@ -376,6 +397,12 @@ public class TownGrid : MonoBehaviour
         }
     }
 
+    void GenerateLakes()
+    {
+        Cells[5, 5].Type = CellType.Water;
+        Cells[6, 3].Type = CellType.Water;
+    }
+
     CellType GetCellTypeSafe(int x, int y)
     {
         if (x < 0 || x >= TownSize || y < 0 || y >= TownSize)
@@ -410,7 +437,23 @@ public class TownGrid : MonoBehaviour
         if (x < 0 || x >= TownSize || y < 0 || y >= TownSize)
             return false;
 
-        if (Cells[x, y].Type == CellType.Land) return true;
+        var oldType = Cells[x, y].Type;
+        var oldBuilding = oldType == CellType.Special ? Cells[x, y].SpecialBuildingType : BuildingType.None;
+
+        if (building == BuildingType.WasteDump2) return oldBuilding == BuildingType.WasteDump;
+        if (building == BuildingType.RecyclingPlant2) return oldBuilding == BuildingType.RecyclingPlant;
+        if (building == BuildingType.LakeFilter) return oldType == CellType.Water;
+
+        if (oldType == CellType.Land) return true;
+
+        return false;
+    }
+
+    private bool BuildingIsUpgrade(BuildingType building)
+    {
+        if (building == BuildingType.WasteDump2) return true;
+        if (building == BuildingType.RecyclingPlant2) return true;
+        if (building == BuildingType.LakeFilter) return true;
 
         return false;
     }
@@ -423,7 +466,13 @@ public class TownGrid : MonoBehaviour
         Cells[x, y].Type = CellType.Special;
         Cells[x, y].SpecialPrefab = GetBuildingPrefab(building);
         Cells[x, y].SpecialBuildingType = building;
-        Cells[x, y].SpecialRot = rot;
+
+        // Don't change rotation for upgrades.
+        if (!BuildingIsUpgrade(building))
+        {
+            Cells[x, y].SpecialRot = rot;
+        }
+
         Cells[x, y].SpecialProps = props;
 
         // Update the map.
