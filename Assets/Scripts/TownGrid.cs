@@ -231,7 +231,7 @@ public class TownGrid : MonoBehaviour
     public const float CellSize = 20.0f;
     public const int TownSize = 20;
 
-    private const int TicksPerUpdate = 30;
+    public const int TicksPerUpdate = 30;
     private int m_tick = 0;
 
     public List<GameObject> LandPrefabs;

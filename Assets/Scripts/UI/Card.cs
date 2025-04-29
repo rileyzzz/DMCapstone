@@ -51,8 +51,17 @@ public class Card : MonoBehaviour
         m_HintText.text = data.HintText;
 
         SetValueText(m_MoneyImpactText, -data.Cost, "$", Color.green, Color.red);
-        SetValueText(m_PollutionImpactText, data.EstimatedPollution, "", Color.gray, Color.green);
-        SetValueText(m_HappinessImpactText, data.EstimatedHappiness, "", Color.yellow, Color.red);
+
+        // Calculate pollution/happiness impact.
+        float estPollution = data.EstimatedPollution;
+        float estHappiness = data.EstimatedHappiness;
+        if (data.Action == CardAction.PlaceBuilding)
+        {
+            GameManager.Instance.EstimateBuildingImpact(data.BuildingToPlace, out estHappiness, out estPollution);
+        }
+
+        SetValueText(m_PollutionImpactText, (int)estPollution, "", Color.gray, Color.green);
+        SetValueText(m_HappinessImpactText, (int)estHappiness, "", Color.yellow, Color.red);
 
         //m_PollutionImpactText.text = data.EstimatedPollution.ToString();
         //m_HappinessImpactText.text = data.EstimatedHappiness.ToString();

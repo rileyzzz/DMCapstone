@@ -235,41 +235,70 @@ public class GameManager : MonoBehaviour
             new Color(1.0f, 0.5f, 0.5f, 0.25f);
     }
 
-    void PlaceBuilding()
+    private static void GetBuildingProperties(BuildingType type, out SpecialCellProperties props)
     {
-        SpecialCellProperties props = new();
-        if (m_buildingToPlace == BuildingType.RecyclingPlant)
+        props = new();
+        if (type == BuildingType.RecyclingPlant)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 5.0f, 1.0f) };
         }
-        else if (m_buildingToPlace == BuildingType.RecyclingPlant2)
+        else if (type == BuildingType.RecyclingPlant2)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 10.0f, 2.0f) };
         }
-        else if (m_buildingToPlace == BuildingType.WasteDump)
+        else if (type == BuildingType.WasteDump)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse( ImpulseType.Happiness, 30.0f, 0.2f ) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse(ImpulseType.Happiness, 30.0f, 0.2f) };
         }
-        else if (m_buildingToPlace == BuildingType.WasteDump2)
+        else if (type == BuildingType.WasteDump2)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 15.0f, 1.25f), new Impulse(ImpulseType.Happiness, 40.0f, 0.3f) };
         }
-        else if (m_buildingToPlace == BuildingType.Incinerator)
+        else if (type == BuildingType.Incinerator)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, 0.2f) };
         }
-        else if (m_buildingToPlace == BuildingType.CompostPlant)
+        else if (type == BuildingType.CompostPlant)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, -0.2f) };
         }
-        else if (m_buildingToPlace == BuildingType.WasteSorter)
+        else if (type == BuildingType.WasteSorter)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 5.0f, -0.5f) };
         }
-        else if (m_buildingToPlace == BuildingType.LakeFilter)
+        else if (type == BuildingType.LakeFilter)
         {
             props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 3.0f, -0.75f) };
         }
+    }
+
+    public void EstimateBuildingImpact(BuildingType building, out float happiness, out float pollution)
+    {
+        happiness = pollution = 0;
+
+        float gameTimeRemaining = m_timeBetweenRounds * (m_numRounds - m_currentRound) + 3.0f;
+        int totalGameFixedUpdates = (int)(gameTimeRemaining / Time.fixedDeltaTime);
+        int totalUpdateTicks = totalGameFixedUpdates / TownGrid.TicksPerUpdate;
+
+        GetBuildingProperties(building, out var props);
+        foreach (var impulse in props.Impulses)
+        {
+            // Use cone volume formula to estimate the pollution impact over time.
+            // This estimates total pollution impact for one tick.
+            float volume = Mathf.PI * (impulse.Radius * impulse.Radius) * (impulse.Amount / 3.0f);
+
+            // And for the remainder of the game (total number of town ticks left), averaged over cell count...
+            float impact = (totalUpdateTicks * volume) / (TownGrid.TownSize * TownGrid.TownSize);
+
+            if (impulse.Type == ImpulseType.Happiness) happiness += impact;
+            else if (impulse.Type == ImpulseType.Pollution) pollution += impact;
+        }
+    }
+
+
+    void PlaceBuilding()
+    {
+        GetBuildingProperties(m_buildingToPlace, out SpecialCellProperties props);
 
         if (m_grid.PlaceCell(m_buildingToPlace, m_placePos.x, m_placePos.y, m_placeRot, props))
         {
