@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         _Instance = this;
 
-        m_playerMoney = 10000;
+        m_playerMoney = 40000;
     }
 
     void Start()
