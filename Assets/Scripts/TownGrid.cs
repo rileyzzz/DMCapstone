@@ -34,6 +34,7 @@ class TownCell
 
     public int SpecialRot;
     public GameObject SpecialPrefab;
+    public BuildingType SpecialBuildingType;
     public SpecialCellProperties SpecialProps;
 
     private GameObject HeavyPollutionObject;
@@ -219,12 +220,20 @@ public class TownGrid : MonoBehaviour
     public List<GameObject> BuildingPrefabs;
 
     public GameObject WasteDumpPrefab;
+    public GameObject WasteDump2Prefab;
     public GameObject RecyclingPlantPrefab;
+    public GameObject RecyclingPlant2Prefab;
+    public GameObject IncineratorPrefab;
+    public GameObject CompostPrefab;
+    public GameObject WasteSorterPrefab;
+    public GameObject LakeFilterPrefab;
 
     public GameObject HeavyPollutionPrefab;
     public GameObject HeavyHappyPrefab;
 
     TownCell[,] Cells;
+
+    private int[] m_buildingCounts = new int[(int)BuildingType.Count];
 
     private float m_totalPollution;
     private float m_totalHappiness;
@@ -268,7 +277,13 @@ public class TownGrid : MonoBehaviour
     public GameObject GetBuildingPrefab(BuildingType type)
     {
         if (type == BuildingType.WasteDump) return WasteDumpPrefab;
+        if (type == BuildingType.WasteDump2) return WasteDump2Prefab;
         if (type == BuildingType.RecyclingPlant) return RecyclingPlantPrefab;
+        if (type == BuildingType.RecyclingPlant2) return RecyclingPlant2Prefab;
+        if (type == BuildingType.Incinerator) return IncineratorPrefab;
+        if (type == BuildingType.CompostPlant) return CompostPrefab;
+        if (type == BuildingType.WasteSorter) return WasteSorterPrefab;
+        if (type == BuildingType.LakeFilter) return LakeFilterPrefab;
         return null;
     }
 
@@ -407,6 +422,7 @@ public class TownGrid : MonoBehaviour
 
         Cells[x, y].Type = CellType.Special;
         Cells[x, y].SpecialPrefab = GetBuildingPrefab(building);
+        Cells[x, y].SpecialBuildingType = building;
         Cells[x, y].SpecialRot = rot;
         Cells[x, y].SpecialProps = props;
 
@@ -414,6 +430,11 @@ public class TownGrid : MonoBehaviour
         Cells[x, y].Instantiate(this);
 
         return true;
+    }
+
+    public int GetBuildingCount(BuildingType building)
+    {
+        return m_buildingCounts[(int)building];
     }
 
     public void Impulse(ImpulseType type, int _x, int _y, float radius, float amt)
@@ -442,11 +463,18 @@ public class TownGrid : MonoBehaviour
 
     void UpdateTown()
     {
+        for (int i = 0; i < m_buildingCounts.Length; i++)
+            m_buildingCounts[i] = 0;
+
         for (int y = 0; y < TownSize; y++)
         {
             for (int x = 0; x < TownSize; x++)
             {
-                Cells[x, y].Tick(this);
+                var cell = Cells[x, y];
+                cell.Tick(this);
+
+                if (cell.Type == CellType.Special)
+                    m_buildingCounts[(int)cell.SpecialBuildingType]++;
             }
         }
 

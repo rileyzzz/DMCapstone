@@ -23,11 +23,32 @@ public enum BuildingType
 {
     None,
     RecyclingPlant,
+    RecyclingPlant2,
     WasteDump,
+    WasteDump2,
+
+    Incinerator,
+    CompostPlant,
+    WasteSorter,
+
+    LakeFilter,
+
+    Count
 }
 
-public enum UpgradeType
+public enum DependencyType
 {
+    CardPlayed,
+    HasBuildingOfType
+}
+
+[System.Serializable]
+public struct CardDependency
+{
+    public DependencyType Type;
+
+    public CardData CardRequired;
+    public BuildingType BuildingRequired;
 }
 
 
@@ -36,7 +57,7 @@ public class CardData : ScriptableObject
 {
     public CardArchetype Archetype;
 
-    public CardData[] Dependencies;
+    public CardDependency[] Dependencies;
 
     public Image Icon;
     public string Name;
@@ -57,13 +78,28 @@ public class CardData : ScriptableObject
     public static IReadOnlyList<CardData> GetAll()
     {
         //return Resources.LoadAll<CardData>("Cards/");
-        return Resources.LoadAll<CardData>("TestCards/");
+        return Resources.LoadAll<CardData>("FinalCards/");
     }
 
     // Can this card be played yet?
     // Checks unlock status/building placement/etc.
     public bool IsPlayable()
     {
+        foreach (var dep in Dependencies)
+        {
+            switch (dep.Type)
+            {
+                case DependencyType.CardPlayed:
+                    if (!GameManager.Instance.HasCardBeenPlayed(dep.CardRequired))
+                        return false;
+                    break;
+                case DependencyType.HasBuildingOfType:
+                    if (GameManager.Instance.GetBuildingCountInTown(dep.BuildingRequired) == 0)
+                        return false;
+                    break;
+            }
+        }
+
         return true;
     }
 }

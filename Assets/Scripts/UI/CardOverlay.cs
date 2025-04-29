@@ -7,8 +7,6 @@ public class CardOverlay : MonoBehaviour
     public Animator m_CardAnim;
     public Card[] m_Cards;
 
-    private HashSet<CardData> m_CardsPreviouslyShown = new();
-
     //private ScoreboardUI scoreboard;
 
     private bool m_bCardsVisible = false;
@@ -20,21 +18,9 @@ public class CardOverlay : MonoBehaviour
 
     private void SetRandomCards()
     {
-        var allCards = CardData.GetAll().Where(card => !m_CardsPreviouslyShown.Contains(card)).ToList();
-        if (allCards.Count < 2)
-        {
-            Debug.LogError("Not enough cards!");
-            return;
-        }
-
-        int cardIndex = Random.Range(0, allCards.Count);
-        m_Cards[0].SetData(allCards[cardIndex]);
-        m_CardsPreviouslyShown.Add(allCards[cardIndex]);
-        allCards.RemoveAt(cardIndex);
-
-        cardIndex = Random.Range(0, allCards.Count);
-        m_Cards[1].SetData(allCards[cardIndex]);
-        m_CardsPreviouslyShown.Add(allCards[cardIndex]);
+        GameManager.Instance.ChooseCardsFromDeck(out CardData card0, out CardData card1);
+        m_Cards[0].SetData(card0);
+        m_Cards[1].SetData(card1);
     }
 
 

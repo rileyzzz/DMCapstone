@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2bd4541300ee1d4a86927acf8792aa6, type: 3}
+  m_Name: Compost
+  m_EditorClassIdentifier: 
+  Archetype: 0
+  Dependencies:
+  - Type: 0
+    CardRequired: {fileID: 11400000, guid: c6ecfef02be786742abcdc9d699dc100, type: 2}
+    BuildingRequired: 0
+  Icon: {fileID: 0}
+  Name: New Composting Plant
+  Description: Expand/Upgrade your facilities to handle compostable materials
+  HintText: Long term benefit to the environment. Increase monetary gain from facilities
+  EstimatedHappiness: 7
+  EstimatedPollution: -10
+  Cost: 1500
+  Action: 2
+  BuildingToUnlock: 0
+  BuildingToPlace: 6

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public enum GameState
 {
@@ -99,6 +101,49 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    // Choose cards at random from the deck.
+
+    private HashSet<CardData> m_CardsPreviouslyShown = new();
+
+    public bool HasCardBeenPlayed(CardData card) => m_CardsPreviouslyShown.Contains(card);
+
+    public void ChooseCardsFromDeck(out CardData card0, out CardData card1)
+    {
+        card0 = card1 = null;
+
+        var playableCards = CardData.GetAll().Where(card => card.IsPlayable()).ToList();
+        if (playableCards.Count < 2)
+        {
+            Debug.LogError("Not enough cards playable!");
+            return;
+        }
+
+        // Ideally, don't show the same card twice.
+        var idealCards = playableCards.Where(card => !m_CardsPreviouslyShown.Contains(card)).ToList();
+        if (idealCards.Count >= 2)
+        {
+            ChooseTwoCards(idealCards, out card0, out card1);
+        }
+        else
+        {
+            // Just choose any two playable cards at random once all cards have been played.
+            ChooseTwoCards(playableCards, out card0, out card1);
+        }
+    }
+
+    private void ChooseTwoCards(List<CardData> cards, out CardData card0, out CardData card1)
+    {
+        int cardIndex = Random.Range(0, cards.Count);
+        card0 = cards[cardIndex];
+        m_CardsPreviouslyShown.Add(cards[cardIndex]);
+        cards.RemoveAt(cardIndex);
+
+        cardIndex = Random.Range(0, cards.Count);
+        card1 = cards[cardIndex];
+        m_CardsPreviouslyShown.Add(cards[cardIndex]);
+    }
+
 
     public void SelectCard(CardData card)
     {
@@ -206,6 +251,11 @@ public class GameManager : MonoBehaviour
         {
             // TODO: sfx
         }
+    }
+
+    public int GetBuildingCountInTown( BuildingType type )
+    {
+        return m_grid.GetBuildingCount(type);
     }
 
     // Move the game to the next round, displaying the new set of cards.
