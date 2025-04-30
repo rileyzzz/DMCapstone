@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
         }
         else if (type == BuildingType.Incinerator)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, 0.2f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, 0.2f), new Impulse(ImpulseType.Happiness, 30.0f, 0.15f) };
         }
         else if (type == BuildingType.CompostPlant)
         {
@@ -265,11 +265,11 @@ public class GameManager : MonoBehaviour
         }
         else if (type == BuildingType.WasteSorter)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 5.0f, -0.5f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 8.0f, -0.5f) };
         }
         else if (type == BuildingType.LakeFilter)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 3.0f, -0.75f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 4.0f, -0.75f) };
         }
     }
 
