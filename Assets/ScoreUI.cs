@@ -22,6 +22,9 @@ public class ScoreUI : MonoBehaviour
 
     private string DetermineResultCategory(float happiness, int money, int pollution)
     {
+        if (pollution > 70)
+            return "Environmentally Negligent";
+
         if (happiness > 40 && pollution < 20)
             return "Green Giant";
 
@@ -41,6 +44,8 @@ public class ScoreUI : MonoBehaviour
     {
         switch (category)
         {
+            case "Environmentally Negligent":
+                return "There was no regard for the environment. You should try focusing on exploring other decisions to see the effects of them. There are lots of opportunity for money, happiness, and environmental care when making a diverse set of decisions";
             case "Money Monger":
                 return "Cared more about monetary gain rather than environmental protection and happiness. Focus more on the economy next time to keep the balance between economy and money. High profit, Low Environment.";
 
