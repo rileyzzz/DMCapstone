@@ -1085,7 +1085,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: You will have ten turns to decide between two options. Your choice will
     affect you scoring and results. With the option you choose you will be able to
-    see the affects of it in real game time on the town. You can navigatte the town
+    see the affects of it in real game time on the town. You can navigate the town
     using the arrow keys. The goal of the game is to play how you deem fit. There
     is no right or wrong way to play.
   m_isRightToLeft: 0
