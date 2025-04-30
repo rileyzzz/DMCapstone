@@ -289,10 +289,14 @@ public class GameManager : MonoBehaviour
             float volume = Mathf.PI * (impulse.Radius * impulse.Radius) * (impulse.Amount / 3.0f);
             
             // hack, weight it a bit since stuff gets clamped after it hits 100.
-            volume *= 0.25f;
+            //volume *= 0.25f;
 
             // And for the remainder of the game (total number of town ticks left), averaged over cell count...
             float impact = (totalUpdateTicks * volume) / (TownGrid.TownSize * TownGrid.TownSize);
+
+            // Clamp.
+            if (impact > 50)
+                impact = 50;
 
             if (impulse.Type == ImpulseType.Happiness) happiness += impact;
             else if (impulse.Type == ImpulseType.Pollution) pollution += impact;

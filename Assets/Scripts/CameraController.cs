@@ -56,5 +56,7 @@ public class CameraController : MonoBehaviour
         m_flZoom = Mathf.SmoothDamp(m_flZoom, targetZoom, ref m_flZoomVel, 0.1f, 100.0f, Time.deltaTime);
         m_cameraObj.transform.localPosition = new Vector3(0, 0, -60.0f + m_flZoom);
 
+        var boom = m_cameraObj.transform.parent;
+        boom.localRotation = Quaternion.Euler(45.0f - m_flZoom * 0.5f, 0, 0);
     }
 }
