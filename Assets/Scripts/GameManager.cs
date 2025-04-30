@@ -241,23 +241,23 @@ public class GameManager : MonoBehaviour
         props = new();
         if (type == BuildingType.RecyclingPlant)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 5.0f, 1.0f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 5.0f, 0.5f) };
         }
         else if (type == BuildingType.RecyclingPlant2)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 10.0f, 2.0f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Happiness, 10.0f, 1.0f) };
         }
         else if (type == BuildingType.WasteDump)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse(ImpulseType.Happiness, 30.0f, 0.1f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 10.0f, 0.75f), new Impulse(ImpulseType.Happiness, 20.0f, 0.04f) };
         }
         else if (type == BuildingType.WasteDump2)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 15.0f, 1.25f), new Impulse(ImpulseType.Happiness, 40.0f, 0.2f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 15.0f, 1.25f), new Impulse(ImpulseType.Happiness, 30.0f, 0.1f) };
         }
         else if (type == BuildingType.Incinerator)
         {
-            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, 0.2f), new Impulse(ImpulseType.Happiness, 30.0f, 0.15f) };
+            props.Impulses = new[] { new Impulse(ImpulseType.Pollution, 20.0f, 0.2f), new Impulse(ImpulseType.Happiness, 30.0f, 0.05f) };
         }
         else if (type == BuildingType.CompostPlant)
         {
