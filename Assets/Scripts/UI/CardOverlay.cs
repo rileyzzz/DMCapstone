@@ -7,6 +7,11 @@ public class CardOverlay : MonoBehaviour
     public Animator m_CardAnim;
     public Card[] m_Cards;
 
+    public AudioSource m_audioSource;
+
+    public AudioClip m_revealSFX;
+    public AudioClip m_playCardSFX;
+
     //private ScoreboardUI scoreboard;
 
     private bool m_bCardsVisible = false;
@@ -36,6 +41,8 @@ public class CardOverlay : MonoBehaviour
 
         m_CardAnim.SetBool("visible", true);
         m_bCardsVisible = true;
+
+        m_audioSource.PlayOneShot(m_revealSFX);
     }
 
     public void CardClicked(Card card)
@@ -61,5 +68,7 @@ public class CardOverlay : MonoBehaviour
         m_bCardsVisible = false;
 
         GameManager.Instance.SelectCard(card.CardData);
+
+        m_audioSource.PlayOneShot(m_playCardSFX);
     }
 }
