@@ -21,17 +21,23 @@ public class Card : MonoBehaviour
         m_HintTextBox.SetActive(false);
     }
 
-    private static void SetValueText(TextMeshProUGUI text, int value, string prefix, in Color goodColor, in Color badColor)
+    private static void SetValueText(TextMeshProUGUI text, int value, string prefix, in Color goodColor, in Color badColor, bool isMoney = false)
     {
         if (value > 0)
         {
+            string valueStr = isMoney ? $"{value:n0}k" : $"{value}";
+
             text.color = goodColor;
-            text.text = $"+ {prefix}{value}";
+            text.text = $"+ {prefix}{valueStr}";
         }
         else if (value < 0)
         {
+            value *= -1;
+
+            string valueStr = isMoney ? $"{value:n0}k" : $"{value}";
+
             text.color = badColor;
-            text.text = $"- {prefix}{(-value)}";
+            text.text = $"- {prefix}{valueStr}";
         }
         else
         {
@@ -50,7 +56,7 @@ public class Card : MonoBehaviour
         m_DescriptionText.text = data.Description;
         m_HintText.text = data.HintText;
 
-        SetValueText(m_MoneyImpactText, -data.Cost, "$", Color.green, Color.red);
+        SetValueText(m_MoneyImpactText, -data.Cost, "$", Color.green, Color.red, true);
 
         // Calculate pollution/happiness impact.
         float estPollution = data.EstimatedPollution;

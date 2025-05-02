@@ -9,7 +9,7 @@ public class EndSceneUI : MonoBehaviour
 
     void Start()
     {
-        moneyText.text = $"Final Money: ${GameResults.Money}";
+        moneyText.text = $"Final Money: ${GameResults.Money:n0}k";
         happinessText.text = $"Final Happiness: {GameResults.Happiness}%";
         pollutionText.text = $"Polluted Tiles: {GameResults.Pollution}";
     }

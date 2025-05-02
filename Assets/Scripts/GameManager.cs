@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public int m_numRounds = 10;
 
-    private const float m_timeBetweenRounds = 15.0f;
+    private const float m_timeBetweenRounds = 20.0f;
 
     [HideInInspector]
     protected int m_currentRound = 0;
